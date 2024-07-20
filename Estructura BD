@@ -1,0 +1,26 @@
+{
+    "_id": "unique_module_id",
+    "nombre_modulo": "Nombre del Módulo",
+    "docente": {
+        "nombre": "Nombre del Docente",
+        "email": "email@ejemplo.com"
+    },
+    "materiales": [
+        {
+            "tipo": "pdf",
+            "titulo": "Título del PDF",
+            "autor": "Autor del PDF",
+            "fecha_creacion": "2024-07-20T00:00:00Z",
+            "contenido": "Texto completo del PDF",
+            "vector": "Representación vectorial del PDF"
+        }
+    ],
+    "videos": [
+        {
+            "titulo": "Título del Video",
+            "fecha_creacion": "2024-07-20T00:00:00Z",
+            "transcripcion": "Transcripción del video",
+            "vector": "Representación vectorial del video"
+        }
+    ]
+}
