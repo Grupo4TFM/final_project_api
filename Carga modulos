@@ -1,0 +1,139 @@
+from pymongo import MongoClient
+
+# Conectar a MongoDB
+client = MongoClient('mongodb://localhost:27017/')
+db = client['nombre_de_la_base_de_datos']
+modulos_collection = db['modulos']
+
+# Datos en formato JSON
+modulos = [
+    {
+        "nombre_modulo": "Fundamentos de matemáticas",
+        "docente": {
+            "nombre": "Moisés Canton Jara",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Fundamentos de programación",
+        "docente": {
+            "nombre": "Lucas Fernández Aragón",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Big data, data science & artificial intelligence",
+        "docente": {
+            "nombre": "Raúl Gómez",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Machine learning I: fundamentos",
+        "docente": {
+            "nombre": "Raúl Melgosa García",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Machine learning II: deep learning y redes neuronales",
+        "docente": {
+            "nombre": "Fermín Lozano Rodríguez",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Planificación automática",
+        "docente": {
+            "nombre": "Roberto Fuentes Dehesa",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Procesamiento del lenguaje natural (NLP)",
+        "docente": {
+            "nombre": "Jeronimo Molina Molina",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Speech & text analytics",
+        "docente": {
+            "nombre": "Carlos Rodríguez Abellán",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Aplicaciones industriales de la IA",
+        "docente": {
+            "nombre": "Jorge Chavero",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Aplicaciones en servicios de la IA",
+        "docente": {
+            "nombre": "Roberto Rodríguez López",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Programa de desarrollo profesional",
+        "docente": {
+            "nombre": "Gemma Segura Virella",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Bootcamp 1: Ética e inteligencia artificial",
+        "docente": {
+            "nombre": "Ramón Miralles López",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Bootcamp 2: Diseño IA",
+        "docente": {
+            "nombre": "Sheyla Rivera",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    },
+    {
+        "nombre_modulo": "Trabajo de Fin de Máster",
+        "docente": {
+            "nombre": "Equipo de tutores",
+            "email": ""
+        },
+        "materiales": [],
+        "videos": []
+    }
+]
+
+# Insertar los documentos en la colección
+modulos_collection.insert_many(modulos)
