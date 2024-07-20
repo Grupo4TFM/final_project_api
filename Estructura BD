@@ -24,3 +24,38 @@
         }
     ]
 }
+def insertar_modulo(nombre_modulo, docente, materiales, videos):
+    modulo = {
+        "nombre_modulo": nombre_modulo,
+        "docente": {
+            "nombre": docente['nombre'],
+            "email": docente['email']
+        },
+        "materiales": materiales,
+        "videos": videos
+    }
+    modulos_collection.insert_one(modulo)
+
+# Ejemplo de uso
+nombre_modulo = "Módulo 1"
+docente = {"nombre": "Profesor A", "email": "profesorA@ejemplo.com"}
+materiales = [
+    {
+        "tipo": "pdf",
+        "titulo": "Título del PDF",
+        "autor": "Autor del PDF",
+        "fecha_creacion": datetime.datetime.utcnow(),
+        "contenido": "Texto completo del PDF",
+        "vector": b"Representación vectorial del PDF"
+    }
+]
+videos = [
+    {
+        "titulo": "Título del Video",
+        "fecha_creacion": datetime.datetime.utcnow(),
+        "transcripcion": "Transcripción del video",
+        "vector": b"Representación vectorial del video"
+    }
+]
+
+insertar_modulo(nombre_modulo, docente, materiales, videos)
