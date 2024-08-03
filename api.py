@@ -14,5 +14,7 @@ def root():
 # secunda ruta
 @app.get("/addicion")
 def add():
-    return {"Resultado 25 + 35 ": addition()}
+    recup=addition()
+    print(recup)
+    return {"Resultado 25 + 35 ": recup}
 
