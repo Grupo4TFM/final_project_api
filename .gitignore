@@ -1,2 +1,11 @@
-/venv
-/env_J
+
+venv/
+env/
+__pycache__/
+*.py[co]
+.vscode
+_build/
+/docs/_build/
+.DS_Store
+.vs
+

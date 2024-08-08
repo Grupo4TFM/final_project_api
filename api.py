@@ -1,20 +1,19 @@
 # modulos
 from typing import Union
-from fastapi import FastAPI
-from implementacion import addition
+from fastapi import FastAPI,UploadFile
+from implementacion import pdf_to_text_01
 
 # instanciacion de FASTAPI
 app = FastAPI()
 
-# primera ruta
+# root
 @app.get("/")
-def root():
-    return {"Hola": "Nuestra primera route con FASTAPI"}
+def welcome():
+    return {"data": "welcome"}
 
-# secunda ruta
-@app.get("/addicion")
-def add():
-    recup=addition()
-    print(recup)
-    return {"Resultado 25 + 35 ": recup}
+# pdf to text route
+@app.post("/pdf_to_text")
+async def call_pdf_to_text(my_file: UploadFile):
+    recup=pdf_to_text_01(my_file.file)
+    return {"data": recup}
 
