@@ -1,1 +1,1 @@
-web: uvicorn api:app --workers 8
+web: uvicorn api:app --workers 4
