@@ -6,12 +6,6 @@ from rag import query_engine
 # instanciacion de FASTAPI
 app = FastAPI()
 
-# pdf to text route
-@app.post("/pdf_to_text")
-async def call_pdf_to_text(my_file: UploadFile):
-    recup=pdf_to_text_01(my_file.file)
-    return {"data": recup}
-
 # Basic route
 @app.get("/")
 def welcome():
@@ -21,3 +15,9 @@ def welcome():
 @app.post("/question/{question}")
 def send_question(question):
     return {"Response": query_engine.query(question)}
+
+# pdf to text route
+@app.post("/pdf_to_text")
+async def call_pdf_to_text(my_file: UploadFile):
+    recup=pdf_to_text_01(my_file.file)
+    return {"data": recup}
