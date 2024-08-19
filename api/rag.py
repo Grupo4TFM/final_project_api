@@ -46,5 +46,8 @@ def tfm_rag_llama(question):
 
     return query_engine.query(question)
 
+if __name__ == '__main__':
+    pass
+
 
 

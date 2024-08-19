@@ -5,8 +5,6 @@
 from fastapi import FastAPI,UploadFile
 from implementacion import pdf_to_text_01,tfm_download_one_file_from_s3,tfm_download_all_files_from_s3
 from rag import tfm_rag_llama
-from models import Question,Response
-
 
 #############################################################
 # instanciacion de FASTAPI
