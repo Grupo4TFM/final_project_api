@@ -18,7 +18,7 @@ app = FastAPI()
 # Welcome route
 #############################################################
 
-@app.get("/tfm4")
+@app.get("/")
 def welcome():
     return {"Message": "Welcome to OBS CHATBOT  (OCB) v1.0.0"}
 
