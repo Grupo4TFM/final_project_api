@@ -1,1 +1,1 @@
-web: uvicorn api:app --workers 8
+web: gunicorn api:app --preload
