@@ -168,3 +168,6 @@ def tfm_download_all_files_from_s3():
             files_uploaded.append(files["Key"])
 
     return files_uploaded
+
+if __name__ == '__main__':
+    pass
