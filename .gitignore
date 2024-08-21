@@ -8,4 +8,6 @@ _build/
 /docs/_build/
 .DS_Store
 .vs
-
+.env
+entorno1/
+audio/
