@@ -4,7 +4,9 @@ from pypdf import PdfReader
 import boto3
 from dotenv import load_dotenv
 from botocore.exceptions import ClientError
-import logging
+import logging 
+import pyttsx3 
+import speech_recognition as sr 
 
 load_dotenv()
 
@@ -171,3 +173,49 @@ def tfm_download_all_files_from_s3():
 
 if __name__ == '__main__':
     pass
+
+
+######################################################
+######  TTS
+######################################################
+
+def text_to_speech(text: str, output_file: str = "output.mp3"): 
+    """ 
+    Function that converts text to speech and saves it as an audio file. 
+       
+    Parameters: 
+    text (str): The text to be converted to speech. 
+    output_file (str): The name of the output file where the audio will be saved.  
+    """ 
+    engine = pyttsx3.init() 
+    engine.save_to_file(text, output_file) 
+    engine.runAndWait() 
+
+######################################################
+######  STT - SPEECH TO TEXT
+######################################################
+
+def speech_to_text(audio_path: str) -> str:
+    """
+    Function to convert speech in an audio file to text.
+
+    Parameters:
+    audio_path (str): Path to the audio file
+
+    Returns:
+    str: The transcribed text
+    """
+    recognizer = sr.Recognizer()
+    
+    try:
+        # Cargar el archivo de audio
+        with sr.AudioFile(audio_path) as source:
+            audio_data = recognizer.record(source)  # Leer el audio del archivo
+
+        # Intentar reconocer el texto en el audio
+        text = recognizer.recognize_google(audio_data, language='es-ES')  # Puedes ajustar el idioma
+        return text
+    except sr.UnknownValueError:
+        return "No se pudo entender el audio"
+    except sr.RequestError as e:
+        return f"Error al solicitar el servicio de reconocimiento: {str(e)}"
