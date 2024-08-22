@@ -30,28 +30,28 @@ def pdf_to_text_01(my_pdf_file)->str:
 ######  CREATE A FOLDER IN S3
 ######################################################
 
-def tfm_create_folder(Key,Bucket):
-    
+def tfm_create_folder(Key, Bucket):
     """Crea una carpeta en un bucket de S3"""
     
     AWS_S3_CREDS = {
-        "aws_access_key_id":os.getenv("S3_ACCESS_KEY"),
-        "aws_secret_access_key":os.getenv("S3_SECRET_KEY"),
+        "aws_access_key_id": os.getenv("S3_ACCESS_KEY"),
+        "aws_secret_access_key": os.getenv("S3_SECRET_KEY"),
     }
     # Configuración de las credenciales de AWS
-  
-    # s3_client = boto3.client('s3', region_name=os.getenv('AWS_DEFAULT_REGION'))
-    s3_client = boto3.client('s3',**AWS_S3_CREDS)
+    s3_client = boto3.client('s3', **AWS_S3_CREDS)
+    
     try:
-        folder_key = Bucket if Bucket.endswith('/') else Bucket + '/'
+        # Asegúrate de que la clave termine en '/'
+        folder_key = Key if Key.endswith('/') else Key + '/'
+        
         s3_client.put_object(
-            Bucket=Key, 
+            Bucket=Bucket, 
             Key=folder_key
-            )
-        logging.info(f"Carpeta '{Bucket}' creada exitosamente en el bucket '{Key}'.")
-        # return True
+        )
+        logging.info(f"Carpeta '{Key}' creada exitosamente en el bucket '{Bucket}'.")
+        return True
     except ClientError as e:
-        logging.error(f"Error al crear la carpeta '{Bucket}': {e}")
+        logging.error(f"Error al crear la carpeta '{Key}': {e}")
         return False
 
 ######################################################
@@ -60,7 +60,14 @@ def tfm_create_folder(Key,Bucket):
 
 def tfm_delete_folder(bucket, folder_name):
     """Borra una carpeta y todo su contenido en un bucket de S3"""
-    s3_client = boto3.client('s3', region_name=os.getenv('AWS_DEFAULT_REGION'))
+    
+    AWS_S3_CREDS = {
+        "aws_access_key_id": os.getenv("S3_ACCESS_KEY"),
+        "aws_secret_access_key": os.getenv("S3_SECRET_KEY"),
+    }
+    
+    s3_client = boto3.client('s3', region_name=os.getenv('AWS_DEFAULT_REGION'), **AWS_S3_CREDS)
+    
     try:
         folder_key = folder_name if folder_name.endswith('/') else folder_name + '/'
         objects_to_delete = s3_client.list_objects_v2(Bucket=bucket, Prefix=folder_key)
@@ -71,12 +78,12 @@ def tfm_delete_folder(bucket, folder_name):
             logging.info(f"Carpeta '{folder_name}' y su contenido han sido eliminados del bucket '{bucket}'.")
         else:
             logging.info(f"La carpeta '{folder_name}' está vacía o no existe.")
+            return False
 
         return True
     except ClientError as e:
         logging.error(f"Error al borrar la carpeta '{folder_name}': {e}")
         return False
-
 
 ######################################################
 ######  UPLOAD ALL THE PDF FROM S3
