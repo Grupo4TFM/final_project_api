@@ -178,19 +178,3 @@ def tfm_download_all_files_from_s3():
 
 if __name__ == '__main__':
     pass
-
-# Llamada de prueba a la función tfm_create_folder
-#result = tfm_create_folder('Prueba/', 'videosclases')
-
-# Verificar si la carpeta fue creada exitosamente
-#if result:
- #   print("Carpeta creada exitosamente.")
-#else:
-    #print("Hubo un error al crear la carpeta.")
-
-result = tfm_delete_folder('videosclases', 'Prueba')
-
-if result:
-    print("Carpeta eliminada exitosamente.")
-else:
-    print("No se pudo eliminar la carpeta o no existía.")
