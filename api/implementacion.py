@@ -213,7 +213,7 @@ def speech_to_text(audio_path: str) -> str:
             audio_data = recognizer.record(source)  # Leer el audio del archivo
 
         # Intentar reconocer el texto en el audio
-        text = recognizer.recognize_google(audio_data, language='es-ES')  # Puedes ajustar el idioma
+        text = recognizer.recognize_google(audio_data, language='es-ES')  # Se Puede ajustar el idioma
         return text
     except sr.UnknownValueError:
         return "No se pudo entender el audio"

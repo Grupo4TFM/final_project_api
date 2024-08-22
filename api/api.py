@@ -107,12 +107,51 @@ async def audio_to_text(audio_file: UploadFile = File(...)):
         result = speech_to_text(audio_path)
 
         # Borrar el archivo temporal después de convertir
-        os.remove(audio_path)
+        os.remove(audio_path) 
 
         return {"Transcription": result}
     except Exception as e:
-        return {"error": str(e)}
+        return {"error": str(e)} 
     
+#############################################################
+# Ruta para STT -> Consulta -> TTS
+#############################################################
+
+@app.post("/tfm4/STT_CONSULTA_TTS/")
+async def stt_to_tts(audio_file: UploadFile = File(...)):
+    try:
+        # Guardar temporalmente el archivo de audio en el servidor
+        audio_path = f"audio/{audio_file.filename}"
+        with open(audio_path, "wb") as f:
+            f.write(await audio_file.read())
+
+        # Convertir el audio a texto usando la función STT
+        transcription = speech_to_text(audio_path)
+
+        # Borrar el archivo de audio temporal después de convertir
+        os.remove(audio_path) 
+
+        # Usar la transcripción como pregunta para el modelo RAG
+        response_text = tfm_rag_llama(transcription)
+
+        # Generar un nombre de archivo único para el archivo de audio (respuesta)
+        timestamp = int(time.time())
+        audio_filename = f"response_{timestamp}.mp3"
+        audio_path = f"audio/{audio_filename}"
+
+        # Convertir la respuesta a voz y guardarla en un archivo MP3
+        text_to_speech(response_text, audio_path)
+
+        # Devolver la transcripción, respuesta en texto, y la URL del archivo de audio generado
+        audio_url = f"/audio/{audio_filename}"
+        return {
+            "Transcription": transcription, 
+            "Response": response_text, 
+            "Audio file URL": audio_url
+        }
+    
+    except Exception as e:
+        return {"error": str(e)}
 
 #############################################################
 # Pdf to text route
