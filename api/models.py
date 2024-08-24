@@ -6,12 +6,23 @@ from pydantic import BaseModel
 class Question(BaseModel):
     question: str
 
-
 ############################################################################
 # Response model
 ############################################################################    
 class Response(BaseModel):
     response: str
 
+############################################################################
+# Delete Folder model
+############################################################################  
+class DeleteFolderRequest(BaseModel):
+    bucket: str
+    folder_name: str
 
-   
+############################################################################
+# Create Folder model
+############################################################################  
+class CreateFolderRequest(BaseModel):
+    folder_name: str 
+    bucket: str
+     

@@ -30,7 +30,7 @@ def pdf_to_text_01(my_pdf_file)->str:
 ######  CREATE A FOLDER IN S3
 ######################################################
 
-def tfm_create_folder(Key, Bucket):
+def tfm_create_folder(Key,Bucket):
     """Crea una carpeta en un bucket de S3"""
     
     AWS_S3_CREDS = {
@@ -58,7 +58,7 @@ def tfm_create_folder(Key, Bucket):
 ######  DELETE A FOLDER FROM S3
 ######################################################
 
-def tfm_delete_folder(bucket, folder_name):
+def tfm_delete_folder(bucket,folder_name):
     """Borra una carpeta y todo su contenido en un bucket de S3"""
     
     AWS_S3_CREDS = {
