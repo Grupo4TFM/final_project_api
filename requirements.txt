@@ -8,8 +8,10 @@ beautifulsoup4==4.12.3
 boto3==1.35.1
 botocore==1.35.1
 certifi==2024.7.4
+cffi==1.17.0
 charset-normalizer==3.3.2
 click==8.1.7
+cryptography==43.0.0
 dataclasses-json==0.6.7
 Deprecated==1.2.14
 dirtyjson==1.0.8
@@ -50,10 +52,14 @@ numpy==1.26.4
 openai==1.41.0
 packaging==24.1
 pandas==2.2.2
+pdfminer.six==20231228
+pdfplumber==0.11.4
 pillow==10.4.0
+pycparser==2.22
 pydantic==2.8.2
 pydantic_core==2.20.1
 pypdf==4.3.1
+pypdfium2==4.30.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-multipart==0.0.9
