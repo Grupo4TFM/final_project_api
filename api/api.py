@@ -4,7 +4,7 @@
 
 from fastapi import FastAPI,UploadFile
 from api.implementacion import pdf_to_text_01,tfm_download_one_file_from_s3,tfm_download_all_files_from_s3,tfm_delete_folder,tfm_create_folder
-from api.rag import tfm_load_data,tfm_rag_llama
+from api.rag import tfm_load_data,tfm_rag_llama,tfm_load_data_with_parameters
 from api.models import DeleteFolderRequest,CreateFolderRequest
 
 #############################################################
@@ -72,14 +72,14 @@ async def load_one_file_from_s3(my_file:str):
 
 @app.post("/tfm4/s3/load_all_files_from_s3",tags=["S3"])
 async def load_all_files_from_s3():
-    try:
-        result=tfm_download_all_files_from_s3()
-        return {"data": result}
-    except:
-        return {"data": f"files not loaded!!!"}
+    # try:
+    result=tfm_download_all_files_from_s3()
+    return {"data": result}
+    # except:
+    #     return {"data": f"files not loaded!!!"}
 
 #############################################################
-# LOAD DATA
+# LOAD DATA SIMPLE
 #############################################################
 
 @app.post("/tfm4/load_data",tags=["RAG"])
@@ -89,7 +89,19 @@ def load_data():
     return {"data":"files loaded successfully!!!"}
 # except:
     return {"data": "files not loaded!!!"}
-    
+
+#############################################################
+# LOAD DATA SIMPLE WITH PARAMETERS
+#############################################################
+
+@app.post("/tfm4/load_data_with_parameters",tags=["RAG"])
+def load_data_with_parameters(llm_model,embedding_model,embed_batch_size,chunk_size,chunk_overlap):
+    try:
+        tfm_load_data_with_parameters(llm_model,embedding_model,embed_batch_size,chunk_size,chunk_overlap)
+        return {"data":"files loaded successfully!!!"}
+    except:
+        return {"data": "files not loaded!!!"}
+
 #############################################################
 # Q/A LLAMA RAG
 #############################################################

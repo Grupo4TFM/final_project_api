@@ -130,7 +130,7 @@ def tfm_download_one_file_from_s3(filename):
             if files["Key"]==filename:
 
                 # create files
-                path=os.path.join(os.getcwd(),"data",files["Key"])
+                path=os.path.join(os.getcwd(),"./api/data",files["Key"])
                 # download files
                 s3_client.download_file(
                         Bucket=bucket_name,
@@ -165,7 +165,7 @@ def tfm_download_all_files_from_s3():
     for files in list_files:
         if files["Key"].startswith("231033630"):
             # create files
-            path=os.path.join(os.getcwd(),"data",files["Key"])
+            path=os.path.join(os.getcwd(),"./api/data",files["Key"])
             # download files
             s3_client.download_file(
                     Bucket=bucket_name,
