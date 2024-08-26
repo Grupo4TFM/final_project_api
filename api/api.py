@@ -2,7 +2,10 @@
 # modulos
 #############################################################
 
-from fastapi import FastAPI,UploadFile
+from io import BytesIO
+from fastapi import FastAPI, File, HTTPException,UploadFile
+from fastapi.responses import JSONResponse
+import pdfplumber
 from api.implementacion import pdf_to_text_01,tfm_download_one_file_from_s3,tfm_download_all_files_from_s3,tfm_delete_folder,tfm_create_folder
 from api.rag import tfm_load_data,tfm_rag_llama,tfm_load_data_with_parameters
 from api.models import DeleteFolderRequest,CreateFolderRequest
@@ -119,8 +122,21 @@ def llama_rag(question):
 # Pdf to text route
 #############################################################
 
-@app.get("/tfm4/pdf_to_text",tags=["ROUTINES"])
-async def call_pdf_to_text(my_file: UploadFile):
-    recup=pdf_to_text_01(my_file.file)
-    return {"data": recup}
+@app.post("/tfm4/pdf_to_text",tags=["ROUTINES"])
+async def pdf_to_text(file: UploadFile = File(...)):
+    if not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Invalid file type. Only PDF files are allowed.")
+    
+    # Read the file into a BytesIO object
+    pdf_file = BytesIO(await file.read())
 
+    try:
+        # Extract text from the PDF file
+        text = ""
+        with pdfplumber.open(pdf_file) as pdf:
+            for page in pdf.pages:
+                text += page.extract_text() or ""
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing PDF: {str(e)}")
+
+    return JSONResponse(content={"text": text})
