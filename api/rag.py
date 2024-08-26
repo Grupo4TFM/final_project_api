@@ -97,7 +97,7 @@ def tfm_rag_llama(question):
 
 
 if __name__ == '__main__':
-    tfm_load_data_with_parameters()
+    pass
 
 
 
