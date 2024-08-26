@@ -72,11 +72,11 @@ async def load_one_file_from_s3(my_file:str):
 
 @app.post("/tfm4/s3/load_all_files_from_s3",tags=["S3"])
 async def load_all_files_from_s3():
-    # try:
-    result=tfm_download_all_files_from_s3()
-    return {"data": result}
-    # except:
-    #     return {"data": f"files not loaded!!!"}
+    try:
+        result=tfm_download_all_files_from_s3()
+        return {"data": result}
+    except:
+        return {"data": f"files not loaded!!!"}
 
 #############################################################
 # LOAD DATA SIMPLE
@@ -97,7 +97,7 @@ def load_data():
 @app.post("/tfm4/load_data_with_parameters",tags=["RAG"])
 def load_data_with_parameters(llm_model,embedding_model,embed_batch_size,chunk_size,chunk_overlap):
     try:
-        tfm_load_data_with_parameters(llm_model,embedding_model,embed_batch_size,chunk_size,chunk_overlap)
+        tfm_load_data_with_parameters(llm_model,embedding_model,int(embed_batch_size),int(chunk_size),int(chunk_overlap))
         return {"data":"files loaded successfully!!!"}
     except:
         return {"data": "files not loaded!!!"}

@@ -12,7 +12,7 @@ load_dotenv()
 ######  PDF TO TEXT
 ######################################################
 
-def pdf_to_text_01(my_pdf_file)->str:
+def pdf_to_text_01(my_pdf_file):
     """
     function accepting a pdf file as input and returning a text as output
     """
