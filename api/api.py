@@ -98,9 +98,9 @@ def load_data():
 #############################################################
 
 @app.post("/tfm4/load_data_with_parameters",tags=["RAG"])
-def load_data_with_parameters(llm_model,embedding_model,embed_batch_size,chunk_size,chunk_overlap):
+def load_data_with_parameters(llm_model,embedding_model,embed_batch_size,chunk_size,chunk_overlap,temperatura):
     try:
-        tfm_load_data_with_parameters(llm_model,embedding_model,int(embed_batch_size),int(chunk_size),int(chunk_overlap))
+        tfm_load_data_with_parameters(llm_model,embedding_model,int(embed_batch_size),int(chunk_size),int(chunk_overlap),float(temperatura))
         return {"data":"files loaded successfully!!!"}
     except:
         return {"data": "files not loaded!!!"}

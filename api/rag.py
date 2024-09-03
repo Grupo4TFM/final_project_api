@@ -43,11 +43,17 @@ def tfm_load_data():
 # Loading data with settings
 ############################################################################
 
-def tfm_load_data_with_parameters(llm_model="gpt-4",embedding_model="text-embedding-3-small",embed_batch_size=100,chunk_size=1024,chunk_overlap=20):
+def tfm_load_data_with_parameters(llm_model="gpt-4",
+                                  embedding_model="text-embedding-3-small",
+                                  embed_batch_size=100,
+                                  chunk_size=1024,
+                                  chunk_overlap=20,
+                                  temperatura=0.00):
 
     print("################# parameters")
+
     # llm
-    Settings.llm = OpenAI(model=llm_model, temperature=0.1)
+    Settings.llm = OpenAI(model=llm_model, temperature=temperatura)
 
     # Embeddings
     Settings.embed_model = OpenAIEmbedding(
